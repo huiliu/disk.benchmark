@@ -1,0 +1,61 @@
+#!/bin/sh
+set -e
+set -u
+#set -x
+#ulimit -n 10000
+
+#settings
+SYSBENCH=sysbench
+CPU_MASK="0,1,2"
+THREADS="1 2 4"
+TEST_MODE="rndrd" #    rndrw    rndwr    seqrd    seqrewr  seqwr"
+RUNTIME_RO=302
+RUNTIME_RW=602
+REPORT=2
+
+#setup
+if [ "$CPU_MASK" != "" ]
+then
+  TASKSET="taskset -c $CPU_MASK"
+else
+  TASKSET=""
+fi
+
+#determine run number for selecting an output directory
+RUN_NUMBER=-1
+
+if [ -f ".run_number" ]
+then
+  read RUN_NUMBER < .run_number
+fi
+
+if [ $RUN_NUMBER -eq -1 ]
+then
+  RUN_NUMBER=0
+fi
+
+OUTDIR=`printf "res%02d" $RUN_NUMBER`
+mkdir -p $OUTDIR
+
+RUN_NUMBER=`expr $RUN_NUMBER + 1`
+echo $RUN_NUMBER > .run_number
+
+
+#prepare data
+function prepare {
+    $SYSBENCH --test=fileio --num-threads=4 cleanup
+    $SYSBENCH --test=fileio --num-threads=4 prepare
+}
+
+
+#run the benchmark
+for test_mode in $TEST_MODE
+do
+    for thread in $THREADS
+    do
+        prepare
+        $TASKSET iostat -mx $REPORT $(($RUNTIME_RO/$REPORT+1))  >> $OUTDIR/iostat.${test_mode}.${thread}.res &
+
+        $TASKSET $SYSBENCH --test=fileio --file-test-mode=$test_mode --rand-seed=42 --rand-type=uniform --num-threads=$thread --report-interval=$REPORT --percentile=99 run | tee -a $OUTDIR/sysbench.${test_mode}.${thread}.res
+    done
+done

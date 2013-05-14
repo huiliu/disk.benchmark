@@ -1,0 +1,110 @@
+set terminal svg size 1000 700
+
+set output "rndrd.1.r_w.rqm.svg"
+plot "summary.rndrd.disk" index 0 using 2 with line title columnhead, \
+     "" index 0 using 3 with linespoints title columnhead
+set output
+
+set output "rndrd.1.r_w.svg"
+plot "summary.rndrd.disk" index 0 using 4 with line title columnhead, \
+     "" index 0 using 5 with linespoints title columnhead, \
+     "" index 0 using 8 with linespoints title columnhead, \
+     "" index 0 using 9 with linespoints title columnhead
+set output
+
+set output "rndrd.1.r_wKb.svg"
+plot "summary.rndrd.disk" index 0 using 6 with line title columnhead, \
+     "" index 0 using 7 with linespoints title columnhead
+set output
+
+set output "rndrd.1.wait.svg"
+plot "summary.rndrd.disk" index 0 using 11 with line title columnhead, \
+     "" index 0 using 12 with linespoints title columnhead, \
+     "" index 0 using 13 with linespoints title columnhead
+set output
+
+set output "rndrd.1.util.svg"
+plot "summary.rndrd.disk" index 0 using 14 with line title columnhead
+set output
+
+# 2 thread
+set output "rndrd.2.r_w.rqm.svg"
+plot "summary.rndrd.disk" index 1 using 2 with line title columnhead, \
+     "" index 1 using 3 with linespoints title columnhead
+set output
+
+set output "rndrd.2.r_w.svg"
+plot "summary.rndrd.disk" index 1 using 4 with line title columnhead, \
+     "" index 1 using 5 with linespoints title columnhead, \
+     "" index 1 using 8 with linespoints title columnhead, \
+     "" index 1 using 9 with linespoints title columnhead
+set output
+
+set output "rndrd.2.r_wKb.svg"
+plot "summary.rndrd.disk" index 1 using 6 with line title columnhead, \
+     "" index 1 using 7 with linespoints title columnhead
+set output
+
+set output "rndrd.2.wait.svg"
+plot "summary.rndrd.disk" index 1 using 11 with line title columnhead, \
+     "" index 1 using 12 with linespoints title columnhead, \
+     "" index 1 using 13 with linespoints title columnhead
+set output
+
+set output "rndrd.2.util.svg"
+plot "summary.rndrd.disk" index 1 using 14 with line title columnhead
+set output
+
+# 4 thread
+set output "rndrd.4.r_w.rqm.svg"
+plot "summary.rndrd.disk" index 2 using 2 with line title columnhead, \
+     "" index 2 using 3 with linespoints title columnhead
+set output
+
+set output "rndrd.4.r_w.svg"
+plot "summary.rndrd.disk" index 2 using 4 with line title columnhead, \
+     "" index 2 using 5 with linespoints title columnhead, \
+     "" index 2 using 8 with linespoints title columnhead, \
+     "" index 2 using 9 with linespoints title columnhead
+set output
+
+set output "rndrd.4.r_wKb.svg"
+plot "summary.rndrd.disk" index 2 using 6 with line title columnhead, \
+     "" index 2 using 7 with linespoints title columnhead
+set output
+
+set output "rndrd.4.wait.svg"
+plot "summary.rndrd.disk" index 2 using 11 with line title columnhead, \
+     "" index 2 using 12 with linespoints title columnhead, \
+     "" index 2 using 13 with linespoints title columnhead
+set output
+
+set output "rndrd.4.util.svg"
+plot "summary.rndrd.disk" index 2 using 14 with line title columnhead
+set output
+
+
+# CPU INFORMATION
+set output "cpu_rndrd.1.svg"
+plot "summary.rndrd.cpu" index 0 using 1 with line title columnhead, \
+                    "" index 0 using 3 with line title columnhead, \
+                    "" index 0 using 4 with line title columnhead, \
+                    "" index 0 using 6 with line title columnhead
+
+set output
+
+set output "cpu_rndrd.2.svg"
+plot "summary.rndrd.cpu" index 1 using 1 with line title columnhead, \
+                    "" index 1 using 3 with line title columnhead, \
+                    "" index 1 using 4 with line title columnhead, \
+                    "" index 1 using 6 with line title columnhead
+
+set output
+
+set output "cpu_rndrd.4.svg"
+plot "summary.rndrd.cpu" index 2 using 1 with line title columnhead, \
+                    "" index 2 using 3 with line title columnhead, \
+                    "" index 2 using 4 with line title columnhead, \
+                    "" index 2 using 6 with line title columnhead
+
+set output
